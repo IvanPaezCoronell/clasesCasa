@@ -1,0 +1,7 @@
+C:\Users\ipaez\OneDrive\Escritorio\CertificadosConsware\NETconC#\Clases\Clases\bin\Debug\Clases.exe.config
+C:\Users\ipaez\OneDrive\Escritorio\CertificadosConsware\NETconC#\Clases\Clases\bin\Debug\Clases.exe
+C:\Users\ipaez\OneDrive\Escritorio\CertificadosConsware\NETconC#\Clases\Clases\bin\Debug\Clases.pdb
+C:\Users\ipaez\OneDrive\Escritorio\CertificadosConsware\NETconC#\Clases\Clases\obj\Debug\Clases.csproj.AssemblyReference.cache
+C:\Users\ipaez\OneDrive\Escritorio\CertificadosConsware\NETconC#\Clases\Clases\obj\Debug\Clases.csproj.CoreCompileInputs.cache
+C:\Users\ipaez\OneDrive\Escritorio\CertificadosConsware\NETconC#\Clases\Clases\obj\Debug\Clases.exe
+C:\Users\ipaez\OneDrive\Escritorio\CertificadosConsware\NETconC#\Clases\Clases\obj\Debug\Clases.pdb
