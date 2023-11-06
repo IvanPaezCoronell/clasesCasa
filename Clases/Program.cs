@@ -484,22 +484,27 @@ namespace Clases
 
 
 
-            // DateTime
-            DateTime fechaHora = new DateTime(2010, 01,30);
+            //// DateTime
+            //DateTime fechaHora = new DateTime(2010, 01,30);
 
-            Console.WriteLine(fechaHora);
+            //Console.WriteLine(fechaHora);
 
 
-            // Convertir una cadena en objetos DateTime
-            string cadenaFecha;
-            DateTime fecha;
+            //// Convertir una cadena en objetos DateTime
+            //string cadenaFecha;
+            //DateTime fecha;
 
-            Console.WriteLine("Digite la fecha y hora:");
-            cadenaFecha = Console.ReadLine();
+            //Console.WriteLine("Digite la fecha y hora:");
+            //cadenaFecha = Console.ReadLine();
 
-            fecha = DateTime.Parse(cadenaFecha);
-            Console.WriteLine(fecha);
+            //fecha = DateTime.Parse(cadenaFecha);
+            //Console.WriteLine(fecha);
 
+
+
+
+            /// Ejercicio - Generador de contraseñas
+            
 
 
 
