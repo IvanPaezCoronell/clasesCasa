@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics.Contracts;
 using System.Linq;
@@ -503,22 +504,64 @@ namespace Clases
 
 
 
+
             /// Ejercicio - Generador de contraseñas
+            string usuario, opcion, password;
+
+            (bool passwordCheck, string mensajeError) verificarPassword;
+
+            Console.WriteLine("Registro");
+
+            Console.WriteLine("Digite un nombre de usuario: ");
+            usuario = Console.ReadLine();
+
+
+            Console.WriteLine("Desea que se le asigne una contrasena automatica? (si/no): ");
+            opcion = Console.ReadLine();
+
+            opcion = opcion.ToLower();
+
+            switch (opcion) {
+                case "si":
+                    Password paswword1 = new Password();
+                    password = paswword1.GenerarPassword();
+
+                    Console.WriteLine("Constrasena asignada: "+password);
+
+                    Console.WriteLine("\n Presiona cualquier tecla para continuar. " );
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine($"\n Tus datos de acceso son los siguientes: \n\tUsuario: {usuario} \n\tcontrasena: {password}");
+                    break;
+                case "no":
+                    Console.WriteLine("\nIngrese una constrasena segura (La constrasena debe contener entre 8-20 caracteres, incluido un numero, una mayuscula, una minuscula y uno caracter especial (#$%&!?): ");
+                    password = Console.ReadLine();
+
+                    Password password2 = new Password();
+
+                    verificarPassword = password2.ComprobarPassword(password);
+
+                    if(verificarPassword.passwordCheck)
+                    {
+                        Console.WriteLine("\nPresione cualquier tecla para continuar.");
+                        Console.ReadKey();
+                        Console.Clear();
+
+                        Console.WriteLine($"\n Tus datos de acceso son los siguientes: \n\tUsuario: {usuario} \n\tcontrasena: {password}");
+                    } else
+                    {
+                        Console.WriteLine(verificarPassword.mensajeError+" .Ingresa una contrasena valida.");
+;                    }
+
+
+                    break;
+            
+            }
+
+
             
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+          
         }
 
 
@@ -580,6 +623,186 @@ namespace Clases
             }
 
         }
+    }
+
+
+    // Ejercio generar passwword
+    class Password
+    {
+        string numeros = "0123456789";
+        string letrasMin = "abcdefghijklmnñopqrstuvwxyz";
+        string letrasMayus = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+        string caracterEspecial = "$%#&!?";
+
+        int mumContiene = 0, minContiene = 0, mayContiene = 0, espContiene = 0;
+
+        public string GenerarPassword()
+        {
+            string password = "";
+
+            Random rdm = new Random();
+
+            // Longitud para la contrasena
+            int longitud = rdm.Next(8, 21);
+
+
+            // Variables que determinan cuantos caracteres se van a usar del grupo
+            double numTener = longitud * .15; // Porcentajes que debe tener
+            double minTener = longitud * .35;
+            double mayTener = longitud * .35;
+            double espTener = longitud * .15;
+
+
+            int numContiene = 0, minContiene = 0, mayContiene = 0, espContiene = 0;
+
+            // Variable que va almacenar cada caracter de la constrasena
+            char caracter;
+
+            // Colocar un caracter hasta que se complete la longitud
+            while (password.Length < longitud)
+            {
+                switch (rdm.Next(0, 4))
+                {
+                    case 0:
+                        if (numContiene < numTener)
+                        {
+                            // A caracter se le asigna un caracter aleatorio de los contenidos en el string numeros, basandose en el indice y apoyandose de la propiedad "Length"
+                            caracter = numeros[rdm.Next(numeros.Length)];
+
+                            password += caracter;
+
+                            numContiene++;
+
+                        }
+                        break;
+                    case 1:
+                        if(minContiene < minTener)
+                        {
+                            caracter = letrasMin[rdm.Next(letrasMin.Length)];
+                            password += caracter;
+
+                            minContiene++;
+
+                        }
+
+                        break;
+                    case 2:
+                        if (mayContiene < mayTener)
+                        {
+                            caracter = letrasMayus[rdm.Next(letrasMayus.Length)];
+                            password += caracter;
+
+                            mayContiene++;
+
+                        }
+                        break;
+                    case 3:
+                        if (espContiene < espTener)
+                        {
+                            caracter = caracterEspecial[rdm.Next(caracterEspecial.Length)];
+                            password += caracter;
+
+                            espContiene++;
+
+                        }
+                        break;
+                }
+
+            }
+            return password;
+        }
+
+        public (bool, string) ComprobarPassword(string passwordPa)
+        {
+            bool passwordCheck = false, hayNumero = false, hayMinuscula = false, hayMayuscula = false, hayEspecial = false;
+
+            string mensajeError = "";
+
+            if (passwordPa.Length >= 8 && passwordPa.Length <= 20) {
+               foreach(char elemento in numeros)
+                {
+                    if(passwordPa.IndexOf(elemento) >= 0)
+                    {
+                        hayNumero = true;
+                        break;
+                    } else
+                    {
+                        hayNumero = false;
+                        mensajeError = "La contrasena debe contener al menos un numero!";
+                    }
+                }
+
+               if(hayNumero)
+                {
+                    foreach(char elemento in letrasMin)
+                    {
+                        if(passwordPa.IndexOf(elemento) >= 0)
+                        {
+                            hayMinuscula = true;
+                            break;
+
+                        } else
+                        {
+                            hayMinuscula = false;
+                            Console.WriteLine("La constrasebna debe tener al menos una letra en minuscula.");
+                        }
+                    } 
+                }
+
+                if (hayMinuscula)
+                {
+                    foreach(char elemento in letrasMayus)
+                    {
+                        if (passwordPa.IndexOf(elemento) >= 0)
+                        {
+                            hayMayuscula = true;
+                            break;
+                        } else
+                        {
+                            hayMayuscula = false;
+                                Console.WriteLine("La constrasena debe tener al menos una letra en mayuscula.");
+                        }
+                    }
+                }
+
+                if (hayMayuscula)
+                {
+                    foreach (char elemento in caracterEspecial)
+                    {
+                        if(passwordPa.IndexOf(elemento) >= 0)
+                        {
+                            hayEspecial = true;
+                            break;
+                        } else
+                        {
+                            hayEspecial = false;
+                            Console.WriteLine("La contrasena debe tener al menos un caracter especial.");
+                        }
+
+                    }
+                }
+
+                if (hayNumero && hayMinuscula && hayMayuscula && hayEspecial)
+                {
+                    passwordCheck = true;
+                } else
+                {
+                    passwordCheck = false;
+                }
+                
+
+
+
+            } else
+            {
+                mensajeError = "La contrasena debe contener entre 8-20 caracteres!";
+                passwordCheck = false;
+            }
+
+            return (passwordCheck, mensajeError);
+                
+        }
+
 
     }
 
