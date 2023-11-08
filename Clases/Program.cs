@@ -2,13 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Markup;
+using System.IO;
 
 namespace Clases
 {
@@ -506,64 +510,231 @@ namespace Clases
 
 
             /// Ejercicio - Generador de contraseñas
-            string usuario, opcion, password;
+            //            string usuario, opcion, password;
 
-            (bool passwordCheck, string mensajeError) verificarPassword;
+            //            (bool passwordCheck, string mensajeError) verificarPassword;
 
-            Console.WriteLine("Registro");
+            //            Console.WriteLine("Registro");
 
-            Console.WriteLine("Digite un nombre de usuario: ");
-            usuario = Console.ReadLine();
-
-
-            Console.WriteLine("Desea que se le asigne una contrasena automatica? (si/no): ");
-            opcion = Console.ReadLine();
-
-            opcion = opcion.ToLower();
-
-            switch (opcion) {
-                case "si":
-                    Password paswword1 = new Password();
-                    password = paswword1.GenerarPassword();
-
-                    Console.WriteLine("Constrasena asignada: "+password);
-
-                    Console.WriteLine("\n Presiona cualquier tecla para continuar. " );
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine($"\n Tus datos de acceso son los siguientes: \n\tUsuario: {usuario} \n\tcontrasena: {password}");
-                    break;
-                case "no":
-                    Console.WriteLine("\nIngrese una constrasena segura (La constrasena debe contener entre 8-20 caracteres, incluido un numero, una mayuscula, una minuscula y uno caracter especial (#$%&!?): ");
-                    password = Console.ReadLine();
-
-                    Password password2 = new Password();
-
-                    verificarPassword = password2.ComprobarPassword(password);
-
-                    if(verificarPassword.passwordCheck)
-                    {
-                        Console.WriteLine("\nPresione cualquier tecla para continuar.");
-                        Console.ReadKey();
-                        Console.Clear();
-
-                        Console.WriteLine($"\n Tus datos de acceso son los siguientes: \n\tUsuario: {usuario} \n\tcontrasena: {password}");
-                    } else
-                    {
-                        Console.WriteLine(verificarPassword.mensajeError+" .Ingresa una contrasena valida.");
-;                    }
+            //            Console.WriteLine("Digite un nombre de usuario: ");
+            //            usuario = Console.ReadLine();
 
 
-                    break;
+            //            Console.WriteLine("Desea que se le asigne una contrasena automatica? (si/no): ");
+            //            opcion = Console.ReadLine();
+
+            //            opcion = opcion.ToLower();
+
+            //            switch (opcion) {
+            //                case "si":
+            //                    Password paswword1 = new Password();
+            //                    password = paswword1.GenerarPassword();
+
+            //                    Console.WriteLine("Constrasena asignada: "+password);
+
+            //                    Console.WriteLine("\n Presiona cualquier tecla para continuar. " );
+            //                    Console.ReadKey();
+            //                    Console.Clear();
+            //                    Console.WriteLine($"\n Tus datos de acceso son los siguientes: \n\tUsuario: {usuario} \n\tcontrasena: {password}");
+            //                    break;
+            //                case "no":
+            //                    Console.WriteLine("\nIngrese una constrasena segura (La constrasena debe contener entre 8-20 caracteres, incluido un numero, una mayuscula, una minuscula y uno caracter especial (#$%&!?): ");
+            //                    password = Console.ReadLine();
+
+            //                    Password password2 = new Password();
+
+            //                    verificarPassword = password2.ComprobarPassword(password);
+
+            //                    if(verificarPassword.passwordCheck)
+            //                    {
+            //                        Console.WriteLine("\nPresione cualquier tecla para continuar.");
+            //                        Console.ReadKey();
+            //                        Console.Clear();
+
+            //                        Console.WriteLine($"\n Tus datos de acceso son los siguientes: \n\tUsuario: {usuario} \n\tcontrasena: {password}");
+            //                    } else
+            //                    {
+            //                        Console.WriteLine(verificarPassword.mensajeError+" .Ingresa una contrasena valida.");
+            //;                    }
+
+
+            //                    break;
+
+            //            }
+
+
+            //// ------------------------------- Estructuras y Enumeraciones ------------------------------
+            //Cliente cliente1 = new Cliente();
+            //cliente1.nombre = "Ivan";
+            //cliente1.edad = 23;
+            //cliente1.direccion = "calle 40";
+
+            //RegistroClientes registro1 = new RegistroClientes();
+
+            //registro1.RegistrarCliente(cliente1);
+
+            //// Ejercicio con Estructuras
+            //bool repetir = true;
+            //string opcion;
+
+            //Biblioteca biblioteca = new Biblioteca();
+
+            //do
+            //{
+            //    Console.WriteLine("\nBiblioteca\n");
+            //    Console.WriteLine("1. Agregar libro.");
+            //    Console.WriteLine("2. Mostrar todos los libros.");
+            //    Console.WriteLine("3. Busqueda exacta de un libro.");
+            //    Console.WriteLine("4. Busqueda parcial de un libro.");
+            //    Console.WriteLine("5. Eliminar un libro.");
+            //    Console.WriteLine("6. salir.");
+
+            //    Console.WriteLine("Ingresa una opcion:  ");
+            //    opcion =  Console.ReadLine();
+
+            //    switch (opcion)
+            //    {
+            //        case "1":
+            //            biblioteca.AgregarLibro();
+            //            break;
+            //        case "2":
+            //            biblioteca.MostrarLibro();
+            //            break;
+            //        case "3":
+            //            biblioteca.BuscarLibro();
+            //            break;
+            //        case "4":
+            //            biblioteca.BusquedaParcial();
+            //            break;
+            //        case "5":
+            //            biblioteca.EliminarLibro();
+            //            break;
+            //        case "6":
+            //            repetir = false;
+
+            //            break;
+            //        default:
+            //            Console.WriteLine("Opcion invalida");
+            //            break;
+
+            //    }
+
+            //} while (repetir = true);
+
+
+            // Declaracion de una variable de tipo enum
+            //Semana diaPago = Semana.Viernes ;
+
+
+            // Clase  Type y TypeOf
+
+            //Type numeroEntero;
+            //numeroEntero = typeof(int);
+            //Console.WriteLine(numeroEntero.IsValueType);
+
+
+            //Type datoStruct = typeof(Libro);
+            //Type datoClass = typeof(Biblioteca);
+            ////Console.WriteLine(datoStruct.Name);
+            ////Console.WriteLine(datoClass.Name);
+
+            //// Declaracion de una matriz tipo FieldInfo
+            //FieldInfo[] camposDatoStruct;
+
+            //camposDatoStruct = datoStruct.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+
+            //foreach (FieldInfo item in camposDatoStruct)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+
+            //Console.WriteLine("Campo del tipo: ");
+
+            //// ------------------------------- Flujos y Archivos ------------------------------
+            //MemoryStream stream = new MemoryStream();   
+
+            //Console.WriteLine("Ingrese un texto para guardarlo: ");
+            //string cadena1 = Console.ReadLine();
+
+
+            //byte[] matrizCadenaByte;
+
+
+            //// Codificamos a cadena1 para ohtener una secuencioa de bytes
+            //matrizCadenaByte = Encoding.UTF8.GetBytes(cadena1);
+
+
+            //// ------------------------------- Excepeciones ------------------------------
+            //int a = 0;
+            //int b = 10;
+            //int resultado = 0;
+
+            //try
+            //{
+            //    resultado = b / a;
+            //} catch (Exception error) {
             
-            }
+            //    Console.WriteLine("No es posible dividir entre un valor de cero.");                                                            
+            //} finally
+            //{
+            //    Console.WriteLine(resultado);
+            //}
 
 
-            
 
-          
+
+
         }
 
+
+
+
+
+
+        // Declracion de una enum
+        enum Semana
+        {
+            Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo
+        }
+
+        ////Estructuras y Enumeraciones
+        class Jugador
+        {
+            string nombre;
+           int vida;
+            int puntaje;
+           List<Item> inventario;
+        }
+
+        struct Item
+        {
+            string nombre;
+            int tipo;
+            int dano;
+            int vida;
+
+        }
+
+        struct Cliente
+        {
+            public string nombre;
+            public int edad;
+            public string direccion;
+        }
+
+        class RegistroClientes
+        {
+            List<Cliente> listaClientes = new List<Cliente>();
+
+
+            public void RegistrarCliente(Cliente clientPa)
+            {
+                listaClientes.Add(clientPa);
+            }
+        }
+
+       
 
 
         // Ejemplo sin generico
@@ -623,7 +794,192 @@ namespace Clases
             }
 
         }
+
     }
+
+    // Ejercicio con Estructuras
+
+    class Biblioteca
+    {
+        Libro[] libros;
+        int cantidadLibros = 0;
+        string buscarLibro;
+        bool libroEncontrado;
+        int posicionLibroEliminar;
+
+
+        // Constructor
+        public Biblioteca()
+        {
+            libros = new Libro[1000];
+        }
+
+
+        public void AgregarLibro()
+        {
+            // Se verifica si se puede ingresar un libro
+            if(cantidadLibros < libros.Length)
+            {
+                Console.Clear();
+                Console.WriteLine($"Ingresar informacion para el libro {cantidadLibros + 1}");
+
+
+                Console.WriteLine("Ingresa el nombre del libro: ");
+                libros[cantidadLibros].Titulo = Console.ReadLine();
+
+                Console.WriteLine("Ingresa el autor: ");
+                libros[cantidadLibros].Autor = Console.ReadLine();
+
+                Console.WriteLine("Ingresa el anio: ");
+                libros[cantidadLibros].Anio = Console.ReadLine();
+
+                cantidadLibros++;
+
+                Console.Clear();
+                Console.WriteLine($"Libro agregado correctamente!");
+
+            } else
+            {
+                Console.WriteLine("Biblioteca llena, intenta eliminar un libro.");
+            }
+        }
+
+        public void MostrarLibro()
+        {
+            Console.Clear();
+
+            if (cantidadLibros == 0)
+            {
+                Console.WriteLine("Biblioteca vacia, Agrega libros para poder visualizar.");
+            } else
+            {
+                for (int i = 0; i < cantidadLibros; i++)
+                {
+                    Console.WriteLine($"{i + 1}. - Titulo = {libros[i].Titulo}, Autor = {libros[i].Autor}, Anio = {libros[i].Anio}");
+                }
+
+                Console.WriteLine("\nPresiona cualquier tecla para continuar...");
+                Console.ReadKey();
+                Console.WriteLine();
+            }
+        }
+
+        public void BuscarLibro()
+        {
+            Console.Clear();
+
+            Console.WriteLine("Ingresar el nombre exacto del libro para buscarlo: ");
+            libroEncontrado = false;
+
+            for (int i = 0; i < cantidadLibros; i++)
+            {
+                if (libros[i].Titulo.Equals(buscarLibro))
+                {
+                    Console.WriteLine($"El libro \"{libros[i].Titulo}\" del autor(a): \"{libros[i].Autor}\" se encuentra disponible en la biblioteca en el indice: {i+1}" );
+                    libroEncontrado = true;
+                } 
+            }
+            if( !libroEncontrado )
+            {
+                Console.WriteLine("Libro no encontrado.\n");
+            }
+        }
+
+        public void BusquedaParcial()
+        {
+            Console.Clear();
+
+            Console.WriteLine("Ingrese al menos una parte del titulo o del nombre del autor de un libro: ");
+            buscarLibro = Console.ReadLine().ToLower();
+
+            libroEncontrado = false;
+
+            for (int i = 0; i < cantidadLibros; i++)
+            {
+                if (libros[i].Titulo.ToLower().Contains(buscarLibro) || libros[i].Autor.ToLower().Contains(buscarLibro))
+                {
+                    Console.WriteLine($"La palabra \"{buscarLibro}\" fue encontrada en el libro: \"{libros[i].Titulo}\" del autor(a): \"{libros[i].Autor}\" en el indice: {i +i}" );
+                }
+                
+            }
+
+            if (!libroEncontrado)
+            {
+                Console.WriteLine("No se encontraron coincidencias.");
+            }
+
+        }
+
+        public void EliminarLibro()
+        {
+            Console.Clear();
+
+            if(cantidadLibros == 0)
+            {
+                Console.WriteLine("La biblioteca esta vacia, no hay nada que eliminar");
+            } else {
+                Console.Write($"Ingresa el numero de libro que desea eliminar (Del 1 al {cantidadLibros}): ");
+                posicionLibroEliminar = Convert.ToInt32( Console.ReadLine()) -1;
+
+                if(posicionLibroEliminar >= 0 && posicionLibroEliminar < cantidadLibros)
+                {
+                    Console.WriteLine($"El libro que deseas eliminar es: \"{libros[posicionLibroEliminar].Titulo}\"? (si/no): ");
+                    string opcion = Console.ReadLine().ToLower();
+
+                    if(opcion == "si")
+                    {
+                        string tituloEliminado = libros[posicionLibroEliminar].Titulo;
+                        string autorEliminado = libros[posicionLibroEliminar].Autor;
+
+                        for (int i = posicionLibroEliminar; i < cantidadLibros; i++)
+                        {
+                            libros[i] = libros[i + 1];
+                        }
+
+                        cantidadLibros--;
+
+                        Console.WriteLine($"\n El libro \"{tituloEliminado}\" del autor(a): \"{autorEliminado}\" fue eliminado! ");
+
+                    } else
+                    {
+                        Console.WriteLine("Operacion \"eliminar libro\" cancelada.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("EL numero de libro noes valido!");
+                }
+            }
+
+        }
+
+    }
+
+
+    struct Libro {
+         string titulo;
+         string autor;
+         string anio;
+
+
+        // Propiedades
+        public string Titulo
+        {
+            get => titulo; set => titulo = value;
+        }
+
+        public string Autor
+        {
+            get => autor; set => autor = value;
+        }
+
+        public string Anio
+        {
+            get => anio; set => anio = value;
+        }
+    
+    }
+
 
 
     // Ejercio generar passwword
@@ -807,7 +1163,6 @@ namespace Clases
     }
 
 
-
     public class  Auto
     {
         private string color = "rojo", modelo, combustible, año, nPuertas;
@@ -898,25 +1253,25 @@ namespace Clases
         
     }
 
-    public class Nombre
-    {
-        public string Concatenar(string nombre, string apellido)
-        {
-            string nombreApellido;
-            nombreApellido = nombre + " " + apellido;
-            return nombreApellido;
-        }
+    //public class Nombre
+    //{
+    //    public string Concatenar(string nombre, string apellido)
+    //    {
+    //        string nombreApellido;
+    //        nombreApellido = nombre + " " + apellido;
+    //        return nombreApellido;
+    //    }
 
 
-        // Sobrecarga 
-        public string Concatenar(string nombre, string apellido, string apellido2)
-        {
-            string nombreApellido;
-            nombreApellido = nombre + " " + apellido + " " + apellido2;
-            return nombreApellido;
-        }
+    //    // Sobrecarga 
+    //    public string Concatenar(string nombre, string apellido, string apellido2)
+    //    {
+    //        string nombreApellido;
+    //        nombreApellido = nombre + " " + apellido + " " + apellido2;
+    //        return nombreApellido;
+    //    }
 
-    }
+    //}
 
 
     public class Empleado
